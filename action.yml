@@ -1,13 +1,25 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'GitHub Issue Notifier'
+description: 'Notifies email receiptients of a new GitHub issue based on labels.'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  fromMailAddress:
+    description: 'Email from address'
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps 
-    description: 'The message to output'
+    default: 'no-reply@example.com'
+  toMailAddress:
+    description: 'Semi-colon separated list of email address recipients'
+    required: true
+  subject:
+    description: 'Subject line'
+    required: true
+    default: 'Notification: A label was applied to an Issue on GitHub'
+  labelsToMonitor:
+    description: 'A JSON array-formatted list of labels to monitor'
+    required: true
+    default: '[{breaking-change}]'
+  verbose:
+    description: 'Turn on verbose logging'
+    required: false
+    default: false
 runs:
   using: 'node12'
   main: 'dist/index.js'

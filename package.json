@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
+  "name": "issue-notifier",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "description": "Automates sending a notification upon labeling of an issue",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
@@ -10,21 +10,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/timheuer/issue-notifier.git"
   },
   "keywords": [
     "GitHub",
     "Actions",
-    "JavaScript"
+    "Issues"
   ],
-  "author": "GitHub",
+  "author": "@timheuer",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/timheuer/issue-notifier/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/timheuer/issue-notifier#readme",
   "dependencies": {
-    "@actions/core": "^1.1.1"
+    "@actions/core": "^1.2.0",
+    "@actions/github": "^1.1.0",
+    "@types/sendgrid": "^4.3.0",
+    "moment": "^2.24.0",
+    "remarkable": "^2.0.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.20.5",
