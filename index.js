@@ -21,7 +21,7 @@ async function run() {
 
     // check to make sure we match any of the labels first
     var context = github.context;
-    var issue = context.issue;
+    var issue = context.payload.issue;
     var issueLabels = issue.labels;
     if (verbose) 
     {
