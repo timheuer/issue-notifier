@@ -1,5 +1,7 @@
 name: 'GitHub Issue Notifier'
 description: 'Notifies email receiptients of a new GitHub issue based on labels.'
+color: green;
+icon: mail;
 inputs:
   fromMailAddress:
     description: 'Email from address'
