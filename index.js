@@ -17,7 +17,7 @@ async function run() {
     var toEmail = core.getInput('toMailAddress');
     var subject = core.getInput('subject');
     var verbose = core.getInput('verbose');
-    var labelsToMonitor = [core.getInput('labelsToMonitor')];
+    var labelsToMonitor = new Array(core.getInput('labelsToMonitor'));
 
     // check to make sure we match any of the labels first
     var context = github.context;
@@ -29,7 +29,7 @@ async function run() {
       console.log('TO:' + toEmail);
       console.log('FROM:' + fromEmail);
       console.log('SUBJECT:' + subject);
-      console.log('LABELS:' + labelsToMonitor);
+      console.log('LABELS TO MONITOR:' + labelsToMonitor);
     }
 
     issueLabels.forEach(function(label) {
