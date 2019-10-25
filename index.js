@@ -1,10 +1,8 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-const sendgrid = require('@sendgrid/mail');
-const moment = require('moment');
-const Remarkable = require('remarkable').Remarkable;
-var md = new Remarkable();
-
+var core = require('@actions/core');
+var github = require('@actions/github');
+var sendgrid = require('@sendgrid/mail');
+var moment = require('moment');
+var Remarkable = require('remarkable').Remarkable;
 var shouldNotify = false;
 
 // most @actions toolkit packages have async methods
@@ -46,6 +44,7 @@ async function run() {
 
     // if we found a match, continue, otherwise we are done
     if (shouldNotify) {
+      var md = new Remarkable();
       var posted_date = moment(issue.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a");
       var issueBodyPlain = 'Posted at ' + posted_date + '\nAnnouncement URL: ' + issue.html_url + '\n\n' + issue.body;
       var issueBodyHtml = 'Posted at ' + posted_date + '<br/>Announcement URL: <a href=' + issue.html_url + '></a><br/><br/>' + md.render(issue.body);

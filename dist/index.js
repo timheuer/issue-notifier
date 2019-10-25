@@ -6045,13 +6045,11 @@ nacl.setPRNG = function(fn) {
 /* 75 */
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-const core = __webpack_require__(694);
-const github = __webpack_require__(30);
-const sendgrid = __webpack_require__(353);
-const moment = __webpack_require__(736);
-const Remarkable = __webpack_require__(414).Remarkable;
-var md = new Remarkable();
-
+var core = __webpack_require__(694);
+var github = __webpack_require__(30);
+var sendgrid = __webpack_require__(353);
+var moment = __webpack_require__(736);
+var Remarkable = __webpack_require__(414).Remarkable;
 var shouldNotify = false;
 
 // most @actions toolkit packages have async methods
@@ -6093,6 +6091,7 @@ async function run() {
 
     // if we found a match, continue, otherwise we are done
     if (shouldNotify) {
+      var md = new Remarkable();
       var posted_date = moment(issue.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a");
       var issueBodyPlain = 'Posted at ' + posted_date + '\nAnnouncement URL: ' + issue.html_url + '\n\n' + issue.body;
       var issueBodyHtml = 'Posted at ' + posted_date + '<br/>Announcement URL: <a href=' + issue.html_url + '></a><br/><br/>' + md.render(issue.body);
