@@ -15,5 +15,5 @@ jobs:
         fromMailAddress: 'no-reply@example.com'
         toMailAddress: 'tim@timheuer.com'
         subject: 'This is a test'
-        labelsToMonitor: "'breaking-change','major-bug'"
+        labelsToMonitor: "breaking-change,major-bug"
         verbose: true
