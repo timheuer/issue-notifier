@@ -6064,7 +6064,7 @@ async function run() {
     var toEmail = core.getInput('toMailAddress');
     var subject = core.getInput('subject');
     var verbose = core.getInput('verbose');
-    var labelsToMonitor = new Array(core.getInput('labelsToMonitor'));
+    var labelsToMonitor = core.getInput('labelsToMonitor').split(",");
 
     // check to make sure we match any of the labels first
     var context = github.context;
