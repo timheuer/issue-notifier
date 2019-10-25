@@ -1,5 +1,7 @@
 # GitHub Issue Notifier
 
+[![GitHubMarketplace](https://img.shields.io/badge/GitHub%20Marketplace-issue--notifier-green?logo=github)](https://github.com/marketplace/actions/github-issue-notifier)
+
 While yes you can subscribe to a GitHub Issue for notifications, this is only after the Issue has been created.  And sometimes you don't want all the details.  This was designed to monitor a specific label when it is applied to an issue (like a breaking change notification) and notify a set of recipients with the details of the issue.
 
 ## Requirements
