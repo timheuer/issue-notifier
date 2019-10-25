@@ -1,19 +1,18 @@
 name: "test-local"
-on:
-  pull_request:
-  push:
-    branches:
-      - master
-      - 'releases/*'
+on: 
+  issues:
+    types: [edited, labeled]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-
-    - run: npm ci
-    - run: npm test
     - uses: ./
+      env:
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
       with:
-        milliseconds: 1000
+        fromMailAddress: 'no-reply@example.com'
+        toMailAddress: 'tim@timheuer.com'
+        subject: 'This is a test'
+        labelsToMonitor: '[{breaking-change}]'
+        verbose: true

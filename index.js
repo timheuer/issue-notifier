@@ -23,7 +23,14 @@ async function run() {
     var context = github.context;
     var issue = context.issue;
     var issueLabels = issue.labels;
-    if (verbose) console.log(issue);
+    if (verbose) 
+    {
+      console.log(issue);
+      console.log('TO:' + toEmail);
+      console.log('FROM:' + fromEmail);
+      console.log('SUBJECT:' + subject);
+      console.log('LABELS:' + labelsToMonitor);
+    }
 
     issueLabels.forEach(function(label) {
       labelsToMonitor.forEach(function(monitor) {
@@ -40,6 +47,10 @@ async function run() {
       var issueBodyPlain = 'Posted at ' + posted_date + '\nAnnouncement URL: ' + issue.html_url + '\n\n' + issue.body;
       var issueBodyHtml = 'Posted at ' + posted_date + '<br/>Announcement URL: <a href=' + issue.html_url + '></a><br/><br/>' + md.render(issue.body);
 
+      if (verbose) {
+        console.log(issueBodyHtml);
+      }
+      
       var msg = {
         to: toEmail,
         from: fromEmail,
