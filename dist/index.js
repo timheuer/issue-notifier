@@ -6080,7 +6080,9 @@ async function run() {
     }
 
     issueLabels.forEach(function(label) {
+      if (verbose) { console.log('IssueLabel:' + label.name); }
       labelsToMonitor.forEach(function(monitor) {
+        if (verbose) { console.log('MonitorLabel:' + monitor); }
         if (monitor == label.name) 
         {
           shouldNotify = true;// TODO: no need to continue, we found a match
