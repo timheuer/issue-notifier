@@ -6049,7 +6049,8 @@ const core = __webpack_require__(694);
 const github = __webpack_require__(30);
 const sendgrid = __webpack_require__(353);
 const moment = __webpack_require__(736);
-const md = __webpack_require__(414).Remarkable;
+const Remarkable = __webpack_require__(414).Remarkable;
+var md = new Remarkable();
 
 var shouldNotify = false;
 

@@ -2,7 +2,8 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const sendgrid = require('@sendgrid/mail');
 const moment = require('moment');
-const md = require('remarkable').Remarkable;
+const Remarkable = require('remarkable').Remarkable;
+var md = new Remarkable();
 
 var shouldNotify = false;
 
