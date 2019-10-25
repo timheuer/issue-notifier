@@ -6076,10 +6076,12 @@ async function run() {
       console.log('FROM:' + fromEmail);
       console.log('SUBJECT:' + subject);
       console.log('LABELS TO MONITOR:' + labelsToMonitor);
+      console.log('LABELS:' + issueLabels);
     }
 
     // check to see if we found a label
     shouldNotify = issueLabels.some(r=>labelsToMonitor.includes(r));
+    if (verbose) console.log('SHOULD NOTIFY: ' + shouldNotify);
 
     // if we found a match, continue, otherwise we are done
     if (shouldNotify) {
