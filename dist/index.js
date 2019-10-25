@@ -6080,16 +6080,7 @@ async function run() {
     }
 
     // check to see if we found a label
-    issueLabels.forEach(function(label) {
-      if (verbose) { console.log('IssueLabel:' + label.name); }
-      labelsToMonitor.forEach(function(monitor) {
-        if (verbose) { console.log('MonitorLabel:' + monitor); }
-        if (monitor == label.name) 
-        {
-          shouldNotify = true;
-        }
-      });
-    });
+    shouldNotify = issueLabels.map(i => i.name).some(item => labelsToMonitor.includes(item));
     if (verbose) console.log('SHOULD NOTIFY: ' + shouldNotify);
 
     // if we found a match, continue, otherwise we are done
