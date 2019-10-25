@@ -15,8 +15,8 @@ uses: timheuer/issue-notifier@v1
 env:
   SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
 with:
-  fromMailAddress: 'example@example.com'
+  fromMailAddress: 'no-reply@example.com'
   toMailAddress: 'example@example.com'
   subject: 'A new issue was labeled'
-  labelsToMonitor: '[{breaking-change},{major-bug}'
+  labelsToMonitor: 'breaking-change,major-bug'
 ```
