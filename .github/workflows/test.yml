@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - uses: timheuer/dotnet-action@master
+      env:
+        STATUS_MESSAGE: "issue-notifier repo! 📬"
     - uses: ./
       env:
         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
