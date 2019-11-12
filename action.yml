@@ -15,6 +15,10 @@ inputs:
     description: 'Subject line'
     required: true
     default: 'Notification: A label was applied to an Issue on GitHub'
+  subjectPrefix:
+    description: 'Prefix in the subject line.  The issue title will be added after this'
+    required: false
+    default: '__NONCE__'
   labelsToMonitor:
     description: 'A JSON array-formatted list of labels to monitor'
     required: true

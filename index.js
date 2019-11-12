@@ -17,6 +17,7 @@ async function run() {
     var subject = core.getInput('subject');
     var verbose = core.getInput('verbose');
     var labelsToMonitor = core.getInput('labelsToMonitor').split(",");
+    var subjectPrefix = core.getInput('subjectPrefix');
 
     // check to make sure we match any of the labels first
     var context = github.context;
@@ -28,6 +29,7 @@ async function run() {
       console.log('TO:' + toEmail);
       console.log('FROM:' + fromEmail);
       console.log('SUBJECT:' + subject);
+      console.log('SUBJECT PREFIX:' + subjectPrefix);
       console.log('LABELS TO MONITOR:' + labelsToMonitor);
       console.log('LABELS:' + issueLabels);
     }
@@ -42,6 +44,11 @@ async function run() {
       var posted_date = moment(issue.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a");
       var issueBodyPlain = 'Posted at ' + posted_date + '\nAnnouncement URL: ' + issue.html_url + '\n\n' + issue.body;
       var issueBodyHtml = 'Posted at ' + posted_date + '<br/>Announcement URL: <a href=' + issue.html_url + '>' + issue.html_url + '</a><br/><br/>' + md.render(issue.body);
+
+      // construct the right subject line
+      if (!subjectPrefix.startsWith('__NONCE__')) {
+        subject = subjectPrefix + ' ' + issue.title;
+      }
 
       if (verbose) {
         console.log(issueBodyHtml);
