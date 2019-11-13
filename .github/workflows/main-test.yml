@@ -16,5 +16,5 @@ jobs:
         toMailAddress: '${{ secrets.NOTIFY_EMAIL }}'
         subject: 'This is a test'
         subjectPrefix: 'BC:'
-        labelsToMonitor: "breaking-change"
+        labelsToMonitor: "breaking-change,Breaking change"
         verbose: true
