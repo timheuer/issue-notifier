@@ -13,7 +13,7 @@ jobs:
         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
       with:
         fromMailAddress: 'no-reply@example.com'
-        toMailAddress: 'example@example.com'
+        toMailAddress: 'tim@timheuer.com'
         subject: 'This is a test'
         subjectPrefix: 'BC:'
         labelsToMonitor: "breaking-change,major-bug"
