@@ -1,7 +1,7 @@
 name: "test-local"
 on: 
   issues:
-    types: [edited, labeled]
+    types: [labeled]
 
 jobs:
   test:
