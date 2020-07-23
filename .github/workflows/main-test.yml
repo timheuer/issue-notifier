@@ -6,9 +6,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'Breaking change'
+    if: (github.event.label.name == 'Breaking change') || (github.event.label.name == 'breaking-change')
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: ./
       env:
         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
@@ -18,4 +18,4 @@ jobs:
         subject: 'This is a test'
         subjectPrefix: 'BC:'
         labelsToMonitor: "breaking-change,Breaking change"
-        verbose: true
+        verbose: false
