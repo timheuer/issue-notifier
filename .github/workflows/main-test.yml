@@ -6,6 +6,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: github.event.label.name == 'Breaking change'
     steps:
     - uses: actions/checkout@v1
     - uses: ./
