@@ -13,7 +13,7 @@ jobs:
       env:
         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
       with:
-        fromMailAddress: 'no-reply@example.com'
+        fromMailAddress: '${{ secrets.NOTIFY_EMAIL }}'
         toMailAddress: '${{ secrets.NOTIFY_EMAIL }}'
         subject: 'This is a test'
         subjectPrefix: 'BC:'
