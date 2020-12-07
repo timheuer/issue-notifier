@@ -10087,7 +10087,31 @@ function write(key, options) {
 /* 79 */,
 /* 80 */,
 /* 81 */,
-/* 82 */,
+/* 82 */
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+// We use any as a valid input type
+/* eslint-disable @typescript-eslint/no-explicit-any */
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Sanitizes an input into a string so it can be passed into issueCommand safely
+ * @param input input to sanitize into a string
+ */
+function toCommandValue(input) {
+    if (input === null || input === undefined) {
+        return '';
+    }
+    else if (typeof input === 'string' || input instanceof String) {
+        return input;
+    }
+    return JSON.stringify(input);
+}
+exports.toCommandValue = toCommandValue;
+//# sourceMappingURL=utils.js.map
+
+/***/ }),
 /* 83 */,
 /* 84 */,
 /* 85 */
@@ -10577,7 +10601,41 @@ module.exports = {
 /* 99 */,
 /* 100 */,
 /* 101 */,
-/* 102 */,
+/* 102 */
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+// For internal use, subject to change.
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// We use any as a valid input type
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const fs = __importStar(__webpack_require__(747));
+const os = __importStar(__webpack_require__(87));
+const utils_1 = __webpack_require__(82);
+function issueCommand(command, message) {
+    const filePath = process.env[`GITHUB_${command}`];
+    if (!filePath) {
+        throw new Error(`Unable to find environment variable for file command ${command}`);
+    }
+    if (!fs.existsSync(filePath)) {
+        throw new Error(`Missing file at path: ${filePath}`);
+    }
+    fs.appendFileSync(filePath, `${utils_1.toCommandValue(message)}${os.EOL}`, {
+        encoding: 'utf8'
+    });
+}
+exports.issueCommand = issueCommand;
+//# sourceMappingURL=file-command.js.map
+
+/***/ }),
 /* 103 */,
 /* 104 */
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
@@ -22478,7 +22536,7 @@ module.exports = function generate_enum(it, $keyword, $ruleType) {
 /* 282 */
 /***/ (function(module) {
 
-module.exports = {"_from":"@octokit/rest@^16.15.0","_id":"@octokit/rest@16.34.0","_inBundle":false,"_integrity":"sha512-EBe5qMQQOZRuezahWCXCnSe0J6tAqrW2hrEH9U8esXzKor1+HUDf8jgImaZf5lkTyWCQA296x9kAH5c0pxEgVQ==","_location":"/@octokit/rest","_phantomChildren":{"os-name":"3.1.0"},"_requested":{"type":"range","registry":true,"raw":"@octokit/rest@^16.15.0","name":"@octokit/rest","escapedName":"@octokit%2frest","scope":"@octokit","rawSpec":"^16.15.0","saveSpec":null,"fetchSpec":"^16.15.0"},"_requiredBy":["/@actions/github"],"_resolved":"https://registry.npmjs.org/@octokit/rest/-/rest-16.34.0.tgz","_shasum":"8703e46d7e9f6aec24a7e591b073f325ca13f6e2","_spec":"@octokit/rest@^16.15.0","_where":"C:\\users\\timheuer\\documents\\github\\issue-notifier\\node_modules\\@actions\\github","author":{"name":"Gregor Martynus","url":"https://github.com/gr2m"},"bugs":{"url":"https://github.com/octokit/rest.js/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/octokit-rest.min.js.gz","maxSize":"33 kB"}],"contributors":[{"name":"Mike de Boer","email":"info@mikedeboer.nl"},{"name":"Fabian Jakobs","email":"fabian@c9.io"},{"name":"Joe Gallo","email":"joe@brassafrax.com"},{"name":"Gregor Martynus","url":"https://github.com/gr2m"}],"dependencies":{"@octokit/request":"^5.2.0","@octokit/request-error":"^1.0.2","atob-lite":"^2.0.0","before-after-hook":"^2.0.0","btoa-lite":"^1.0.0","deprecation":"^2.0.0","lodash.get":"^4.4.2","lodash.set":"^4.3.2","lodash.uniq":"^4.5.0","octokit-pagination-methods":"^1.1.0","once":"^1.4.0","universal-user-agent":"^4.0.0"},"deprecated":false,"description":"GitHub REST API client for Node.js","devDependencies":{"@gimenete/type-writer":"^0.1.3","@octokit/fixtures-server":"^5.0.6","@octokit/graphql":"^4.2.0","@types/node":"^12.0.0","bundlesize":"^0.18.0","chai":"^4.1.2","compression-webpack-plugin":"^3.0.0","cypress":"^3.0.0","glob":"^7.1.2","http-proxy-agent":"^2.1.0","lodash.camelcase":"^4.3.0","lodash.merge":"^4.6.1","lodash.upperfirst":"^4.3.1","mkdirp":"^0.5.1","mocha":"^6.0.0","mustache":"^3.0.0","nock":"^11.3.3","npm-run-all":"^4.1.2","nyc":"^14.0.0","prettier":"^1.14.2","proxy":"^1.0.0","semantic-release":"^15.0.0","sinon":"^7.2.4","sinon-chai":"^3.0.0","sort-keys":"^4.0.0","string-to-arraybuffer":"^1.0.0","string-to-jsdoc-comment":"^1.0.0","typescript":"^3.3.1","webpack":"^4.0.0","webpack-bundle-analyzer":"^3.0.0","webpack-cli":"^3.0.0"},"files":["index.js","index.d.ts","lib","plugins"],"homepage":"https://github.com/octokit/rest.js#readme","keywords":["octokit","github","rest","api-client"],"license":"MIT","name":"@octokit/rest","nyc":{"ignore":["test"]},"publishConfig":{"access":"public"},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"repository":{"type":"git","url":"git+https://github.com/octokit/rest.js.git"},"scripts":{"build":"npm-run-all build:*","build:browser":"npm-run-all build:browser:*","build:browser:development":"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json","build:browser:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map","build:ts":"npm run -s update-endpoints:typescript","coverage":"nyc report --reporter=html && open coverage/index.html","generate-bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","lint":"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","lint:fix":"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","postvalidate:ts":"tsc --noEmit --target es6 test/typescript-validate.ts","prebuild:browser":"mkdirp dist/","pretest":"npm run -s lint","prevalidate:ts":"npm run -s build:ts","start-fixtures-server":"octokit-fixtures-server","test":"nyc mocha test/mocha-node-setup.js \"test/*/**/*-test.js\"","test:browser":"cypress run --browser chrome","update-endpoints":"npm-run-all update-endpoints:*","update-endpoints:code":"node scripts/update-endpoints/code","update-endpoints:fetch-json":"node scripts/update-endpoints/fetch-json","update-endpoints:typescript":"node scripts/update-endpoints/typescript","validate:ts":"tsc --target es6 --noImplicitAny index.d.ts"},"types":"index.d.ts","version":"16.34.0"};
+module.exports = {"_args":[["@octokit/rest@16.34.0","D:\\GitHub\\issue-notifier"]],"_from":"@octokit/rest@16.34.0","_id":"@octokit/rest@16.34.0","_inBundle":false,"_integrity":"sha512-EBe5qMQQOZRuezahWCXCnSe0J6tAqrW2hrEH9U8esXzKor1+HUDf8jgImaZf5lkTyWCQA296x9kAH5c0pxEgVQ==","_location":"/@octokit/rest","_phantomChildren":{"os-name":"3.1.0"},"_requested":{"type":"version","registry":true,"raw":"@octokit/rest@16.34.0","name":"@octokit/rest","escapedName":"@octokit%2frest","scope":"@octokit","rawSpec":"16.34.0","saveSpec":null,"fetchSpec":"16.34.0"},"_requiredBy":["/@actions/github"],"_resolved":"https://registry.npmjs.org/@octokit/rest/-/rest-16.34.0.tgz","_spec":"16.34.0","_where":"D:\\GitHub\\issue-notifier","author":{"name":"Gregor Martynus","url":"https://github.com/gr2m"},"bugs":{"url":"https://github.com/octokit/rest.js/issues"},"bundlesize":[{"path":"./dist/octokit-rest.min.js.gz","maxSize":"33 kB"}],"contributors":[{"name":"Mike de Boer","email":"info@mikedeboer.nl"},{"name":"Fabian Jakobs","email":"fabian@c9.io"},{"name":"Joe Gallo","email":"joe@brassafrax.com"},{"name":"Gregor Martynus","url":"https://github.com/gr2m"}],"dependencies":{"@octokit/request":"^5.2.0","@octokit/request-error":"^1.0.2","atob-lite":"^2.0.0","before-after-hook":"^2.0.0","btoa-lite":"^1.0.0","deprecation":"^2.0.0","lodash.get":"^4.4.2","lodash.set":"^4.3.2","lodash.uniq":"^4.5.0","octokit-pagination-methods":"^1.1.0","once":"^1.4.0","universal-user-agent":"^4.0.0"},"description":"GitHub REST API client for Node.js","devDependencies":{"@gimenete/type-writer":"^0.1.3","@octokit/fixtures-server":"^5.0.6","@octokit/graphql":"^4.2.0","@types/node":"^12.0.0","bundlesize":"^0.18.0","chai":"^4.1.2","compression-webpack-plugin":"^3.0.0","cypress":"^3.0.0","glob":"^7.1.2","http-proxy-agent":"^2.1.0","lodash.camelcase":"^4.3.0","lodash.merge":"^4.6.1","lodash.upperfirst":"^4.3.1","mkdirp":"^0.5.1","mocha":"^6.0.0","mustache":"^3.0.0","nock":"^11.3.3","npm-run-all":"^4.1.2","nyc":"^14.0.0","prettier":"^1.14.2","proxy":"^1.0.0","semantic-release":"^15.0.0","sinon":"^7.2.4","sinon-chai":"^3.0.0","sort-keys":"^4.0.0","string-to-arraybuffer":"^1.0.0","string-to-jsdoc-comment":"^1.0.0","typescript":"^3.3.1","webpack":"^4.0.0","webpack-bundle-analyzer":"^3.0.0","webpack-cli":"^3.0.0"},"files":["index.js","index.d.ts","lib","plugins"],"homepage":"https://github.com/octokit/rest.js#readme","keywords":["octokit","github","rest","api-client"],"license":"MIT","name":"@octokit/rest","nyc":{"ignore":["test"]},"publishConfig":{"access":"public"},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"repository":{"type":"git","url":"git+https://github.com/octokit/rest.js.git"},"scripts":{"build":"npm-run-all build:*","build:browser":"npm-run-all build:browser:*","build:browser:development":"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json","build:browser:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map","build:ts":"npm run -s update-endpoints:typescript","coverage":"nyc report --reporter=html && open coverage/index.html","generate-bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","lint":"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","lint:fix":"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","postvalidate:ts":"tsc --noEmit --target es6 test/typescript-validate.ts","prebuild:browser":"mkdirp dist/","pretest":"npm run -s lint","prevalidate:ts":"npm run -s build:ts","start-fixtures-server":"octokit-fixtures-server","test":"nyc mocha test/mocha-node-setup.js \"test/*/**/*-test.js\"","test:browser":"cypress run --browser chrome","update-endpoints":"npm-run-all update-endpoints:*","update-endpoints:code":"node scripts/update-endpoints/code","update-endpoints:fetch-json":"node scripts/update-endpoints/fetch-json","update-endpoints:typescript":"node scripts/update-endpoints/typescript","validate:ts":"tsc --target es6 --noImplicitAny index.d.ts"},"types":"index.d.ts","version":"16.34.0"};
 
 /***/ }),
 /* 283 */,
@@ -24250,7 +24308,7 @@ IconvLiteDecoderStream.prototype.collect = function(cb) {
 /* 314 */
 /***/ (function(module) {
 
-module.exports = {"_from":"@octokit/graphql@^2.0.1","_id":"@octokit/graphql@2.1.3","_inBundle":false,"_integrity":"sha512-XoXJqL2ondwdnMIW3wtqJWEwcBfKk37jO/rYkoxNPEVeLBDGsGO1TCWggrAlq3keGt/O+C/7VepXnukUxwt5vA==","_location":"/@octokit/graphql","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"@octokit/graphql@^2.0.1","name":"@octokit/graphql","escapedName":"@octokit%2fgraphql","scope":"@octokit","rawSpec":"^2.0.1","saveSpec":null,"fetchSpec":"^2.0.1"},"_requiredBy":["/@actions/github"],"_resolved":"https://registry.npmjs.org/@octokit/graphql/-/graphql-2.1.3.tgz","_shasum":"60c058a0ed5fa242eca6f938908d95fd1a2f4b92","_spec":"@octokit/graphql@^2.0.1","_where":"C:\\users\\timheuer\\documents\\github\\issue-notifier\\node_modules\\@actions\\github","author":{"name":"Gregor Martynus","url":"https://github.com/gr2m"},"bugs":{"url":"https://github.com/octokit/graphql.js/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/octokit-graphql.min.js.gz","maxSize":"5KB"}],"dependencies":{"@octokit/request":"^5.0.0","universal-user-agent":"^2.0.3"},"deprecated":false,"description":"GitHub GraphQL API client for browsers and Node","devDependencies":{"chai":"^4.2.0","compression-webpack-plugin":"^2.0.0","coveralls":"^3.0.3","cypress":"^3.1.5","fetch-mock":"^7.3.1","mkdirp":"^0.5.1","mocha":"^6.0.0","npm-run-all":"^4.1.3","nyc":"^14.0.0","semantic-release":"^15.13.3","simple-mock":"^0.8.0","standard":"^12.0.1","webpack":"^4.29.6","webpack-bundle-analyzer":"^3.1.0","webpack-cli":"^3.2.3"},"files":["lib"],"homepage":"https://github.com/octokit/graphql.js#readme","keywords":["octokit","github","api","graphql"],"license":"MIT","main":"index.js","name":"@octokit/graphql","publishConfig":{"access":"public"},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"repository":{"type":"git","url":"git+https://github.com/octokit/graphql.js.git"},"scripts":{"build":"npm-run-all build:*","build:development":"webpack --mode development --entry . --output-library=octokitGraphql --output=./dist/octokit-graphql.js --profile --json > dist/bundle-stats.json","build:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=octokitGraphql --output-path=./dist --output-filename=octokit-graphql.min.js --devtool source-map","bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","coverage":"nyc report --reporter=html && open coverage/index.html","coverage:upload":"nyc report --reporter=text-lcov | coveralls","prebuild":"mkdirp dist/","pretest":"standard","test":"nyc mocha test/*-test.js","test:browser":"cypress run --browser chrome"},"standard":{"globals":["describe","before","beforeEach","afterEach","after","it","expect"]},"version":"2.1.3"};
+module.exports = {"_args":[["@octokit/graphql@2.1.3","D:\\GitHub\\issue-notifier"]],"_from":"@octokit/graphql@2.1.3","_id":"@octokit/graphql@2.1.3","_inBundle":false,"_integrity":"sha512-XoXJqL2ondwdnMIW3wtqJWEwcBfKk37jO/rYkoxNPEVeLBDGsGO1TCWggrAlq3keGt/O+C/7VepXnukUxwt5vA==","_location":"/@octokit/graphql","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"@octokit/graphql@2.1.3","name":"@octokit/graphql","escapedName":"@octokit%2fgraphql","scope":"@octokit","rawSpec":"2.1.3","saveSpec":null,"fetchSpec":"2.1.3"},"_requiredBy":["/@actions/github"],"_resolved":"https://registry.npmjs.org/@octokit/graphql/-/graphql-2.1.3.tgz","_spec":"2.1.3","_where":"D:\\GitHub\\issue-notifier","author":{"name":"Gregor Martynus","url":"https://github.com/gr2m"},"bugs":{"url":"https://github.com/octokit/graphql.js/issues"},"bundlesize":[{"path":"./dist/octokit-graphql.min.js.gz","maxSize":"5KB"}],"dependencies":{"@octokit/request":"^5.0.0","universal-user-agent":"^2.0.3"},"description":"GitHub GraphQL API client for browsers and Node","devDependencies":{"chai":"^4.2.0","compression-webpack-plugin":"^2.0.0","coveralls":"^3.0.3","cypress":"^3.1.5","fetch-mock":"^7.3.1","mkdirp":"^0.5.1","mocha":"^6.0.0","npm-run-all":"^4.1.3","nyc":"^14.0.0","semantic-release":"^15.13.3","simple-mock":"^0.8.0","standard":"^12.0.1","webpack":"^4.29.6","webpack-bundle-analyzer":"^3.1.0","webpack-cli":"^3.2.3"},"files":["lib"],"homepage":"https://github.com/octokit/graphql.js#readme","keywords":["octokit","github","api","graphql"],"license":"MIT","main":"index.js","name":"@octokit/graphql","publishConfig":{"access":"public"},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"repository":{"type":"git","url":"git+https://github.com/octokit/graphql.js.git"},"scripts":{"build":"npm-run-all build:*","build:development":"webpack --mode development --entry . --output-library=octokitGraphql --output=./dist/octokit-graphql.js --profile --json > dist/bundle-stats.json","build:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=octokitGraphql --output-path=./dist --output-filename=octokit-graphql.min.js --devtool source-map","bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","coverage":"nyc report --reporter=html && open coverage/index.html","coverage:upload":"nyc report --reporter=text-lcov | coveralls","prebuild":"mkdirp dist/","pretest":"standard","test":"nyc mocha test/*-test.js","test:browser":"cypress run --browser chrome"},"standard":{"globals":["describe","before","beforeEach","afterEach","after","it","expect"]},"version":"2.1.3"};
 
 /***/ }),
 /* 315 */,
@@ -28000,17 +28058,25 @@ function octokitValidate(octokit) {
 
 "use strict";
 
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const os = __webpack_require__(87);
+const os = __importStar(__webpack_require__(87));
+const utils_1 = __webpack_require__(82);
 /**
  * Commands
  *
  * Command Format:
- *   ##[name key=value;key=value]message
+ *   ::name key=value,key=value::message
  *
  * Examples:
- *   ##[warning]This is the user warning message
- *   ##[set-secret name=mypassword]definitelyNotAPassword!
+ *   ::warning::This is the message
+ *   ::set-env name=MY_VAR::some value
  */
 function issueCommand(command, properties, message) {
     const cmd = new Command(command, properties, message);
@@ -28035,34 +28101,39 @@ class Command {
         let cmdStr = CMD_STRING + this.command;
         if (this.properties && Object.keys(this.properties).length > 0) {
             cmdStr += ' ';
+            let first = true;
             for (const key in this.properties) {
                 if (this.properties.hasOwnProperty(key)) {
                     const val = this.properties[key];
                     if (val) {
-                        // safely append the val - avoid blowing up when attempting to
-                        // call .replace() if message is not a string for some reason
-                        cmdStr += `${key}=${escape(`${val || ''}`)},`;
+                        if (first) {
+                            first = false;
+                        }
+                        else {
+                            cmdStr += ',';
+                        }
+                        cmdStr += `${key}=${escapeProperty(val)}`;
                     }
                 }
             }
         }
-        cmdStr += CMD_STRING;
-        // safely append the message - avoid blowing up when attempting to
-        // call .replace() if message is not a string for some reason
-        const message = `${this.message || ''}`;
-        cmdStr += escapeData(message);
+        cmdStr += `${CMD_STRING}${escapeData(this.message)}`;
         return cmdStr;
     }
 }
 function escapeData(s) {
-    return s.replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+    return utils_1.toCommandValue(s)
+        .replace(/%/g, '%25')
+        .replace(/\r/g, '%0D')
+        .replace(/\n/g, '%0A');
 }
-function escape(s) {
-    return s
+function escapeProperty(s) {
+    return utils_1.toCommandValue(s)
+        .replace(/%/g, '%25')
         .replace(/\r/g, '%0D')
         .replace(/\n/g, '%0A')
-        .replace(/]/g, '%5D')
-        .replace(/;/g, '%3B');
+        .replace(/:/g, '%3A')
+        .replace(/,/g, '%2C');
 }
 //# sourceMappingURL=command.js.map
 
@@ -32457,10 +32528,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const command_1 = __webpack_require__(431);
-const os = __webpack_require__(87);
-const path = __webpack_require__(622);
+const file_command_1 = __webpack_require__(102);
+const utils_1 = __webpack_require__(82);
+const os = __importStar(__webpack_require__(87));
+const path = __importStar(__webpack_require__(622));
 /**
  * The code to exit an action
  */
@@ -32481,11 +32561,21 @@ var ExitCode;
 /**
  * Sets env variable for this action and future actions in the job
  * @param name the name of the variable to set
- * @param val the value of the variable
+ * @param val the value of the variable. Non-string values will be converted to a string via JSON.stringify
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function exportVariable(name, val) {
-    process.env[name] = val;
-    command_1.issueCommand('set-env', { name }, val);
+    const convertedVal = utils_1.toCommandValue(val);
+    process.env[name] = convertedVal;
+    const filePath = process.env['GITHUB_ENV'] || '';
+    if (filePath) {
+        const delimiter = '_GitHubActionsFileCommandDelimeter_';
+        const commandValue = `${name}<<${delimiter}${os.EOL}${convertedVal}${os.EOL}${delimiter}`;
+        file_command_1.issueCommand('ENV', commandValue);
+    }
+    else {
+        command_1.issueCommand('set-env', { name }, convertedVal);
+    }
 }
 exports.exportVariable = exportVariable;
 /**
@@ -32501,7 +32591,13 @@ exports.setSecret = setSecret;
  * @param inputPath
  */
 function addPath(inputPath) {
-    command_1.issueCommand('add-path', {}, inputPath);
+    const filePath = process.env['GITHUB_PATH'] || '';
+    if (filePath) {
+        file_command_1.issueCommand('PATH', inputPath);
+    }
+    else {
+        command_1.issueCommand('add-path', {}, inputPath);
+    }
     process.env['PATH'] = `${inputPath}${path.delimiter}${process.env['PATH']}`;
 }
 exports.addPath = addPath;
@@ -32524,12 +32620,22 @@ exports.getInput = getInput;
  * Sets the value of an output.
  *
  * @param     name     name of the output to set
- * @param     value    value to store
+ * @param     value    value to store. Non-string values will be converted to a string via JSON.stringify
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setOutput(name, value) {
     command_1.issueCommand('set-output', { name }, value);
 }
 exports.setOutput = setOutput;
+/**
+ * Enables or disables the echoing of commands into stdout for the rest of the step.
+ * Echoing is disabled by default if ACTIONS_STEP_DEBUG is not set.
+ *
+ */
+function setCommandEcho(enabled) {
+    command_1.issue('echo', enabled ? 'on' : 'off');
+}
+exports.setCommandEcho = setCommandEcho;
 //-----------------------------------------------------------------------
 // Results
 //-----------------------------------------------------------------------
@@ -32547,6 +32653,13 @@ exports.setFailed = setFailed;
 // Logging Commands
 //-----------------------------------------------------------------------
 /**
+ * Gets whether Actions Step Debug is on or not
+ */
+function isDebug() {
+    return process.env['RUNNER_DEBUG'] === '1';
+}
+exports.isDebug = isDebug;
+/**
  * Writes debug message to user log
  * @param message debug message
  */
@@ -32556,18 +32669,18 @@ function debug(message) {
 exports.debug = debug;
 /**
  * Adds an error issue
- * @param message error issue message
+ * @param message error issue message. Errors will be converted to string via toString()
  */
 function error(message) {
-    command_1.issue('error', message);
+    command_1.issue('error', message instanceof Error ? message.toString() : message);
 }
 exports.error = error;
 /**
  * Adds an warning issue
- * @param message warning issue message
+ * @param message warning issue message. Errors will be converted to string via toString()
  */
 function warning(message) {
-    command_1.issue('warning', message);
+    command_1.issue('warning', message instanceof Error ? message.toString() : message);
 }
 exports.warning = warning;
 /**
@@ -32625,8 +32738,9 @@ exports.group = group;
  * Saves state for current action, the state can only be retrieved by this action's post job execution.
  *
  * @param     name     name of the state to store
- * @param     value    value to store
+ * @param     value    value to store. Non-string values will be converted to a string via JSON.stringify
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function saveState(name, value) {
     command_1.issueCommand('save-state', { name }, value);
 }
@@ -32735,7 +32849,7 @@ module.exports = function arrayToJSON(arr) {
 /* 477 */
 /***/ (function(module) {
 
-module.exports = {"_args":[["tough-cookie@2.4.3","C:\\users\\timheuer\\documents\\github\\issue-notifier"]],"_development":true,"_from":"tough-cookie@2.4.3","_id":"tough-cookie@2.4.3","_inBundle":false,"_integrity":"sha512-Q5srk/4vDM54WJsJio3XNn6K2sCG+CQ8G5Wz6bZhRZoAe/+TxjWB/GlFAnYEbkYVlON9FMk/fE3h2RLpPXo4lQ==","_location":"/request/tough-cookie","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"tough-cookie@2.4.3","name":"tough-cookie","escapedName":"tough-cookie","rawSpec":"2.4.3","saveSpec":null,"fetchSpec":"2.4.3"},"_requiredBy":["/request"],"_resolved":"https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.4.3.tgz","_spec":"2.4.3","_where":"C:\\users\\timheuer\\documents\\github\\issue-notifier","author":{"name":"Jeremy Stashewsky","email":"jstash@gmail.com"},"bugs":{"url":"https://github.com/salesforce/tough-cookie/issues"},"contributors":[{"name":"Alexander Savin"},{"name":"Ian Livingstone"},{"name":"Ivan Nikulin"},{"name":"Lalit Kapoor"},{"name":"Sam Thompson"},{"name":"Sebastian Mayr"}],"dependencies":{"psl":"^1.1.24","punycode":"^1.4.1"},"description":"RFC6265 Cookies and Cookie Jar for node.js","devDependencies":{"async":"^1.4.2","nyc":"^11.6.0","string.prototype.repeat":"^0.2.0","vows":"^0.8.1"},"engines":{"node":">=0.8"},"files":["lib"],"homepage":"https://github.com/salesforce/tough-cookie","keywords":["HTTP","cookie","cookies","set-cookie","cookiejar","jar","RFC6265","RFC2965"],"license":"BSD-3-Clause","main":"./lib/cookie","name":"tough-cookie","repository":{"type":"git","url":"git://github.com/salesforce/tough-cookie.git"},"scripts":{"cover":"nyc --reporter=lcov --reporter=html vows test/*_test.js","test":"vows test/*_test.js"},"version":"2.4.3"};
+module.exports = {"_args":[["tough-cookie@2.4.3","D:\\GitHub\\issue-notifier"]],"_from":"tough-cookie@2.4.3","_id":"tough-cookie@2.4.3","_inBundle":false,"_integrity":"sha512-Q5srk/4vDM54WJsJio3XNn6K2sCG+CQ8G5Wz6bZhRZoAe/+TxjWB/GlFAnYEbkYVlON9FMk/fE3h2RLpPXo4lQ==","_location":"/request/tough-cookie","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"tough-cookie@2.4.3","name":"tough-cookie","escapedName":"tough-cookie","rawSpec":"2.4.3","saveSpec":null,"fetchSpec":"2.4.3"},"_requiredBy":["/request"],"_resolved":"https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.4.3.tgz","_spec":"2.4.3","_where":"D:\\GitHub\\issue-notifier","author":{"name":"Jeremy Stashewsky","email":"jstash@gmail.com"},"bugs":{"url":"https://github.com/salesforce/tough-cookie/issues"},"contributors":[{"name":"Alexander Savin"},{"name":"Ian Livingstone"},{"name":"Ivan Nikulin"},{"name":"Lalit Kapoor"},{"name":"Sam Thompson"},{"name":"Sebastian Mayr"}],"dependencies":{"psl":"^1.1.24","punycode":"^1.4.1"},"description":"RFC6265 Cookies and Cookie Jar for node.js","devDependencies":{"async":"^1.4.2","nyc":"^11.6.0","string.prototype.repeat":"^0.2.0","vows":"^0.8.1"},"engines":{"node":">=0.8"},"files":["lib"],"homepage":"https://github.com/salesforce/tough-cookie","keywords":["HTTP","cookie","cookies","set-cookie","cookiejar","jar","RFC6265","RFC2965"],"license":"BSD-3-Clause","main":"./lib/cookie","name":"tough-cookie","repository":{"type":"git","url":"git://github.com/salesforce/tough-cookie.git"},"scripts":{"cover":"nyc --reporter=lcov --reporter=html vows test/*_test.js","test":"vows test/*_test.js"},"version":"2.4.3"};
 
 /***/ }),
 /* 478 */,
@@ -61315,7 +61429,7 @@ module.exports = {
 /* 960 */
 /***/ (function(module) {
 
-module.exports = {"_from":"@sendgrid/client@^6.4.0","_id":"@sendgrid/client@6.4.0","_inBundle":false,"_integrity":"sha512-GcO+hKXMQiwN0xMGfPITArlj4Nab1vZsrsRLmsJlcXGZV1V1zQC6XuAWJv6MGDd0hr/jKaXmCJ1XMYkxIRQHFw==","_location":"/@sendgrid/client","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"@sendgrid/client@^6.4.0","name":"@sendgrid/client","escapedName":"@sendgrid%2fclient","scope":"@sendgrid","rawSpec":"^6.4.0","saveSpec":null,"fetchSpec":"^6.4.0"},"_requiredBy":["/@sendgrid/mail"],"_resolved":"https://registry.npmjs.org/@sendgrid/client/-/client-6.4.0.tgz","_shasum":"d58df30adea5d7d09e747e2b61f9f859deeda798","_spec":"@sendgrid/client@^6.4.0","_where":"C:\\users\\timheuer\\documents\\github\\issue-notifier\\node_modules\\@sendgrid\\mail","author":{"name":"Twilio SendGrid","email":"dx@sendgrid.com","url":"sendgrid.com"},"bugs":{"url":"https://github.com/sendgrid/sendgrid-nodejs/issues"},"bundleDependencies":false,"contributors":[{"name":"Kyle Partridge","email":"kyle.partridge@sendgrid.com"},{"name":"David Tomberlin","email":"david.tomberlin@sendgrid.com"},{"name":"Swift","email":"swift@sendgrid.com"},{"name":"Brandon West","email":"brandon.west@sendgrid.com"},{"name":"Scott Motte","email":"scott.motte@sendgrid.com"},{"name":"Robert Acosta","email":"robert.acosta@sendgrid.com"},{"name":"Elmer Thomas","email":"elmer.thomas@sendgrid.com"},{"name":"Adam Reis","email":"adam@reis.nz"}],"dependencies":{"@sendgrid/helpers":"^6.4.0","@types/request":"^2.0.3","request":"^2.88.0"},"deprecated":false,"description":"Twilio SendGrid NodeJS API client","engines":{"node":">=6.0.0"},"homepage":"https://sendgrid.com","license":"MIT","main":"index.js","name":"@sendgrid/client","publishConfig":{"access":"public"},"repository":{"type":"git","url":"git://github.com/sendgrid/sendgrid-nodejs.git"},"tags":["http","rest","api","mail","sendgrid"],"version":"6.4.0"};
+module.exports = {"_args":[["@sendgrid/client@6.4.0","D:\\GitHub\\issue-notifier"]],"_from":"@sendgrid/client@6.4.0","_id":"@sendgrid/client@6.4.0","_inBundle":false,"_integrity":"sha512-GcO+hKXMQiwN0xMGfPITArlj4Nab1vZsrsRLmsJlcXGZV1V1zQC6XuAWJv6MGDd0hr/jKaXmCJ1XMYkxIRQHFw==","_location":"/@sendgrid/client","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"@sendgrid/client@6.4.0","name":"@sendgrid/client","escapedName":"@sendgrid%2fclient","scope":"@sendgrid","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/@sendgrid/mail"],"_resolved":"https://registry.npmjs.org/@sendgrid/client/-/client-6.4.0.tgz","_spec":"6.4.0","_where":"D:\\GitHub\\issue-notifier","author":{"name":"Twilio SendGrid","email":"dx@sendgrid.com","url":"sendgrid.com"},"bugs":{"url":"https://github.com/sendgrid/sendgrid-nodejs/issues"},"contributors":[{"name":"Kyle Partridge","email":"kyle.partridge@sendgrid.com"},{"name":"David Tomberlin","email":"david.tomberlin@sendgrid.com"},{"name":"Swift","email":"swift@sendgrid.com"},{"name":"Brandon West","email":"brandon.west@sendgrid.com"},{"name":"Scott Motte","email":"scott.motte@sendgrid.com"},{"name":"Robert Acosta","email":"robert.acosta@sendgrid.com"},{"name":"Elmer Thomas","email":"elmer.thomas@sendgrid.com"},{"name":"Adam Reis","email":"adam@reis.nz"}],"dependencies":{"@sendgrid/helpers":"^6.4.0","@types/request":"^2.0.3","request":"^2.88.0"},"description":"Twilio SendGrid NodeJS API client","engines":{"node":">=6.0.0"},"homepage":"https://sendgrid.com","license":"MIT","main":"index.js","name":"@sendgrid/client","publishConfig":{"access":"public"},"repository":{"type":"git","url":"git://github.com/sendgrid/sendgrid-nodejs.git"},"tags":["http","rest","api","mail","sendgrid"],"version":"6.4.0"};
 
 /***/ }),
 /* 961 */,
