@@ -10682,7 +10682,7 @@ async function run() {
 
     // if we found a match, continue, otherwise we are done
     if (shouldNotify) {
-      var md = new Remarkable();
+      var md = new Remarkable({html:true});
       var posted_date = moment(issue.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a");
       var issueBodyPlain = 'Posted at ' + posted_date + '\nAnnouncement URL: ' + issue.html_url + '\n\n' + issue.body;
       var issueBodyHtml = 'Posted at ' + posted_date + '<br/>Announcement URL: <a href=' + issue.html_url + '>' + issue.html_url + '</a><br/><br/>' + md.render(issue.body);
