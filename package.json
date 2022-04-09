@@ -28,7 +28,7 @@
     "@actions/github": "^1.1.0",
     "@sendgrid/mail": "^6.4.0",
     "@types/sendgrid": "^4.3.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "remarkable": "^2.0.0"
   },
   "devDependencies": {
